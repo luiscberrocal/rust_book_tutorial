@@ -1,25 +1,23 @@
-use std::{io, cmp::Ordering};
-
-use rand::Rng;
+use clap::{App, Arg};
 
 fn main() {
-    println!("Guess the number!");
-    
-    let secret_number = rand::thread_rng().gen_range(1..=100);
+    let matches = App::new("Burger builder")
+        .version("1.0.0")
+        .author("Luis C. Berrocal")
+        .about("App to build a burger correctly")
+        .arg(
+            Arg::new("style")
+                .long("style")
+                .value_name("BURGER_STYLE")
+                .help("Type of burger to build")
+        )
+        .get_matches();
 
-    println!("Please input your guess.");
-
-    let mut guess = String::new();
-
-    io::stdin()
-        .read_line(&mut guess)
-        .expect("Failed to read line");
-
-    println!("You guessed: {guess}");
-
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Too small!"),
-        Ordering::Greater => println!("Too big!"),
-        Ordering::Equal => println!("You win!"),
+    if let Some(i) = matches.value_of("style"){
+        match i {
+            "smash" => println!("Got a {} style burger", i),
+            "tall" => println!("Got a {} style burger", i),
+            _ => println!("Unsupported style!!")
+        }
     }
 }
