@@ -1,23 +1,21 @@
-use clap::{App, Arg};
+use clap::{arg, command};
 
 fn main() {
-    let matches = App::new("Burger builder")
-        .version("1.0.0")
-        .author("Luis C. Berrocal")
-        .about("App to build a burger correctly")
+    // https://docs.rs/clap/latest/clap/builder/struct.Arg.html#method.num_args
+    let matches = command!()
         .arg(
-            Arg::new("style")
-                .long("style")
-                .value_name("BURGER_STYLE")
-                .help("Type of burger to build")
+            arg!(
+            --style <BURGE_STYLE> "What style of burger you want?"
+        )
+                .required(true)
+        )
+        .arg(
+            arg!(
+                -t --topping <TOPPING> "Topping for your burger"
+            ).num_args(0..=10)
         )
         .get_matches();
-
-    if let Some(i) = matches.value_of("style"){
-        match i {
-            "smash" => println!("Got a {} style burger", i),
-            "tall" => println!("Got a {} style burger", i),
-            _ => println!("Unsupported style!!")
-        }
+    if let Some(style) = matches.get_one::<String>("style") {
+        println!("Value for name: {style}");
     }
 }
