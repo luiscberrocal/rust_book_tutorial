@@ -9,8 +9,8 @@ use clap::Parser;
 struct Cli {
     #[arg(long, short('s'))]
     style: String,
-    #[arg(long("ingr"), short)]
-    ingredient: String,
+    #[arg(long("ing"), short)]
+    ingredient: Vec<String>,
 }
 
 fn main() {
