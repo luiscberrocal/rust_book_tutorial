@@ -1,7 +1,14 @@
-use clap::{arg, command};
+use clap::{arg, ArgMatches, command};
 
 fn main() {
-    // https://docs.rs/clap/latest/clap/builder/struct.Arg.html#method.num_args
+    let matches = get_matches_with_macros();
+    if let Some(style) = matches.get_one::<String>("style") {
+        println!("Value for name: {style}");
+    }
+}
+
+fn get_matches_with_macros() -> ArgMatches {
+// https://docs.rs/clap/latest/clap/builder/struct.Arg.html#method.num_args
     let matches = command!()
         .arg(
             arg!(
@@ -15,7 +22,5 @@ fn main() {
             ).num_args(0..=10)
         )
         .get_matches();
-    if let Some(style) = matches.get_one::<String>("style") {
-        println!("Value for name: {style}");
-    }
+    matches
 }
