@@ -1,3 +1,5 @@
+mod looping;
+
 use clap::{arg, command};
 use clap::Parser;
 
@@ -18,5 +20,6 @@ fn main() {
 
     println!("two: {:?}", cli.style);
     println!("one: {:?}", cli.ingredient);
+    looping::loop_testing()
 }
 
