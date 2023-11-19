@@ -1,11 +1,20 @@
 use clap::{arg, command};
 use clap::Parser;
+use serde::{Deserialize, Serialize};
+use serde_json;
 
 mod looping;
 
-struct Burger{
+#[derive(Serialize)]
+struct Burger {
     style: String,
-    ingredients: Vec<String>
+    ingredients: Vec<String>,
+}
+
+#[derive(Serialize)]
+struct Person {
+    name: String,
+    age: u32,
 }
 
 #[derive(Parser)]
@@ -27,6 +36,19 @@ fn main() {
     for ing in cli.ingredient.iter() {
         println!("Ingredient: {:?}", ing);
     }
+
+    // declaration of the Person struct instance with the name and age fields
+    let person = Person {
+        name: cli.style,
+        age: 28,
+    };
+
+    // serializes the person struct to JSON using the serde_json library
+    let json = serde_json::to_string(&person).expect("Serialization failed");
+
+    // prints the serialized JSON string
+    println!("Serialized JSON: {}", json);
+    ;
     looping::loop_testing()
 }
 
