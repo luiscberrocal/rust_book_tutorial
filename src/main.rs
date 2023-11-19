@@ -15,6 +15,7 @@ struct Burger {
 struct Person {
     name: String,
     age: u32,
+    hobbies: Vec<String>,
 }
 
 #[derive(Parser)]
@@ -41,6 +42,7 @@ fn main() {
     let person = Person {
         name: cli.style,
         age: 28,
+        hobbies: cli.ingredient
     };
 
     // serializes the person struct to JSON using the serde_json library
