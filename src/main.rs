@@ -1,7 +1,12 @@
-mod looping;
-
 use clap::{arg, command};
 use clap::Parser;
+
+mod looping;
+
+struct Burger{
+    style: String,
+    ingredients: Vec<String>
+}
 
 #[derive(Parser)]
 #[command(name = "Burger Builder")]
@@ -18,8 +23,10 @@ struct Cli {
 fn main() {
     let cli = Cli::parse();
 
-    println!("two: {:?}", cli.style);
-    println!("one: {:?}", cli.ingredient);
+    println!("style: {:?}", cli.style);
+    for ing in cli.ingredient.iter() {
+        println!("Ingredient: {:?}", ing);
+    }
     looping::loop_testing()
 }
 
