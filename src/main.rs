@@ -1,3 +1,4 @@
+use std::env;
 use clap::{arg, command};
 use clap::Parser;
 use serde::{Deserialize, Serialize};
@@ -42,7 +43,7 @@ fn main() {
     let person = Person {
         name: cli.style,
         age: 28,
-        hobbies: cli.ingredient
+        hobbies: cli.ingredient,
     };
 
     // serializes the person struct to JSON using the serde_json library
@@ -50,7 +51,8 @@ fn main() {
 
     // prints the serialized JSON string
     println!("Serialized JSON: {}", json);
-    ;
-    looping::loop_testing()
+
+    let current_path = env::current_dir().expect("Could not field folder");
+    println!("Current folder {:?}", current_path);
 }
 
